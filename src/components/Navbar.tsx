@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useBrand } from '../context/BrandContext';
-import { Menu, X, ArrowUpRight, Camera, Settings, Phone } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Phone } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
-  const { activeView, setActiveView, openInquiry, setIsPhotoManagerOpen, setIsSettingsOpen, config } = useBrand();
+  const { activeView, setActiveView, openInquiry, config } = useBrand();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -48,7 +48,7 @@ export const Navbar: React.FC = () => {
           >
             <div className="flex items-center gap-2">
               <span className="font-serif text-xl sm:text-2xl font-bold tracking-[0.18em] text-[#141414] group-hover:text-[#B89358] transition-colors">
-                COLYAHE
+                COLHAYE
               </span>
               <span className="hidden sm:inline-block text-[#B89358] text-xs">/</span>
               <span className="hidden sm:inline-block text-xs uppercase tracking-[0.2em] text-neutral-500 font-medium">
@@ -85,30 +85,10 @@ export const Navbar: React.FC = () => {
 
           {/* Actions & Tools */}
           <div className="hidden sm:flex items-center gap-3">
-            {/* Quick Upload / Manage Photos button */}
-            <button
-              onClick={() => setIsPhotoManagerOpen(true)}
-              title="Upload / replace Idle Omar Hussein's portrait photos"
-              className="p-2 text-neutral-500 hover:text-[#141414] hover:bg-[#EBE4DC]/60 transition-colors border border-transparent hover:border-[#DFD5C8]"
-              aria-label="Manage portrait photos"
-            >
-              <Camera className="w-4 h-4" />
-            </button>
-
-            {/* Quick Config / Settings */}
-            <button
-              onClick={() => setIsSettingsOpen(true)}
-              title="Configure Kenyan WhatsApp number & settings"
-              className="p-2 text-neutral-500 hover:text-[#141414] hover:bg-[#EBE4DC]/60 transition-colors border border-transparent hover:border-[#DFD5C8]"
-              aria-label="Site settings"
-            >
-              <Settings className="w-4 h-4" />
-            </button>
-
             {/* Prominent CTA */}
             <button
-              onClick={() => openInquiry('general', 'Direct Inquiry', 'Initiate personal discussion with Idle Omar Hussein (Colyahe)')}
-              className="inline-flex items-center gap-2 px-5 py-2 text-xs uppercase tracking-[0.16em] font-medium bg-[#141414] text-[#FAF8F5] hover:bg-[#B89358] hover:text-[#141414] transition-all duration-200 active:scale-[0.98]"
+              onClick={() => openInquiry('general', 'Direct Inquiry', 'Initiate personal discussion with Idle Omar Hussein (Colhaye)')}
+              className="inline-flex items-center gap-2 px-5 py-2 text-xs uppercase tracking-[0.16em] font-medium bg-[#141414] text-[#FAF8F5] hover:bg-[#B89358] hover:text-[#141414] transition-all duration-200 active:scale-[0.98] cursor-pointer"
             >
               <span>Let's Talk</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -118,16 +98,8 @@ export const Navbar: React.FC = () => {
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-2 lg:hidden">
             <button
-              onClick={() => setIsPhotoManagerOpen(true)}
-              className="p-2 text-neutral-600 hover:text-[#141414]"
-              aria-label="Upload photo"
-            >
-              <Camera className="w-4 h-4" />
-            </button>
-
-            <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-[#141414] focus:outline-none focus-visible:ring-1 focus-visible:ring-[#B89358]"
+              className="p-2 text-[#141414] focus:outline-none focus-visible:ring-1 focus-visible:ring-[#B89358] cursor-pointer"
               aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -176,33 +148,12 @@ export const Navbar: React.FC = () => {
               </a>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 pt-2">
-              <button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  setIsPhotoManagerOpen(true);
-                }}
-                className="py-2.5 px-3 text-center text-xs tracking-wider uppercase border border-[#DFD5C8] text-[#141414] hover:bg-[#EBE4DC]"
-              >
-                Upload Photo
-              </button>
-              <button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  setIsSettingsOpen(true);
-                }}
-                className="py-2.5 px-3 text-center text-xs tracking-wider uppercase border border-[#DFD5C8] text-[#141414] hover:bg-[#EBE4DC]"
-              >
-                Settings
-              </button>
-            </div>
-
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 openInquiry('general', 'Direct Inquiry', 'Initiate discussion with Idle Omar Hussein');
               }}
-              className="w-full py-3.5 bg-[#141414] text-[#FAF8F5] text-xs uppercase tracking-[0.18em] font-medium text-center"
+              className="w-full py-3.5 bg-[#141414] text-[#FAF8F5] text-xs uppercase tracking-[0.18em] font-medium text-center cursor-pointer"
             >
               Let's Talk
             </button>

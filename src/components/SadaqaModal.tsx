@@ -9,51 +9,30 @@ interface SadaqaModalProps {
 }
 
 export const SadaqaModal: React.FC<SadaqaModalProps> = ({ campaign, onClose }) => {
-  const { generateWhatsAppLink, config, campaignImages, setCampaignImage } = useBrand();
+  const { generateWhatsAppLink, config } = useBrand();
   const [supporterName, setSupporterName] = useState('');
   const [pledgeAmount, setPledgeAmount] = useState('');
   const [supportType, setSupportType] = useState<'financial' | 'in-kind' | 'corporate'>('financial');
   const [submitted, setSubmitted] = useState(false);
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   if (!campaign) return null;
 
-  const currentImage = campaignImages[campaign.id] || campaign.imageUrl;
+  const currentImage = campaign.imageUrl;
 
   const progress = Math.min(
     100,
     Math.round((campaign.raisedAmountKes / campaign.targetAmountKes) * 100)
   );
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const dataUrl = event.target?.result as string;
-      setCampaignImage(campaign.id, dataUrl);
-    };
-    reader.readAsDataURL(file);
-  };
-
   const handleWhatsAppSupport = (e: React.FormEvent) => {
     e.preventDefault();
-    const msg = `Assalamu Alaikum / Hello Idle Omar (Colyahe),\nI would like to support the Sadaqa initiative: "${campaign.title}" (${campaign.categoryLabel} in ${campaign.location}).\nName: ${supporterName || 'Anonymous Supporter'}\nPledge/Contribution: KES ${pledgeAmount || 'Direct Support'}\nSupport Type: ${supportType}.\nPlease provide verified bank/M-Pesa details and ongoing distribution reporting.`;
+    const msg = `Assalamu Alaikum / Hello Idle Omar (Colhaye),\nI would like to support the Sadaqa initiative: "${campaign.title}" (${campaign.categoryLabel} in ${campaign.location}).\nName: ${supporterName || 'Anonymous Supporter'}\nPledge/Contribution: KES ${pledgeAmount || 'Direct Support'}\nSupport Type: ${supportType}.\nPlease provide verified bank/M-Pesa details and ongoing distribution reporting.`;
     window.open(generateWhatsAppLink(msg), '_blank');
     setSubmitted(true);
   };
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 lg:p-10">
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="hidden"
-      />
-
       <div className="relative bg-[#FAF8F5] text-[#141414] max-w-3xl w-full max-h-[92vh] overflow-y-auto border border-[#DFD5C8] shadow-2xl">
         {/* Close Button */}
         <button
@@ -75,15 +54,6 @@ export const SadaqaModal: React.FC<SadaqaModalProps> = ({ campaign, onClose }) =
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/50 to-transparent" />
-
-          {/* Quick Upload action on modal */}
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            className="absolute top-4 left-4 z-20 px-3 py-1.5 bg-black/60 hover:bg-black/90 text-white text-[11px] uppercase tracking-wider flex items-center gap-1.5 transition-colors border border-white/20"
-          >
-            <span>Change Photo</span>
-          </button>
 
           <div className="absolute bottom-6 left-6 right-6 text-[#FAF8F5] space-y-2">
             <span className="text-xs uppercase tracking-widest text-[#D4B580]">

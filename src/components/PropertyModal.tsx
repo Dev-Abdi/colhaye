@@ -18,7 +18,7 @@ export const PropertyModal: React.FC<PropertyModalProps> = ({ property, onClose 
   if (!property) return null;
 
   const handleWhatsAppDirect = () => {
-    const msg = `Hello Idle Omar (Colyahe), I am interested in "${property.title}" located in ${property.location} (Listed at ${property.price}). Could you provide detailed floor plans, viewing schedule, and availability?`;
+    const msg = `Hello Idle Omar (Colhaye), I am interested in "${property.title}" located in ${property.location} (Listed at ${property.price}). Could you provide detailed floor plans, viewing schedule, and availability?`;
     window.open(generateWhatsAppLink(msg), '_blank');
   };
 
@@ -128,7 +128,7 @@ export const PropertyModal: React.FC<PropertyModalProps> = ({ property, onClose 
               <div className="p-4 bg-[#F4EFEB] border border-[#EBE4DC] space-y-2">
                 <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-[#141414] font-medium">
                   <ShieldCheck className="w-4 h-4 text-[#B89358]" />
-                  <span>Colyahe Verification Guarantee</span>
+                  <span>Colhaye Verification Guarantee</span>
                 </div>
                 <p className="text-xs text-neutral-600 leading-relaxed">
                   Every property presented by Idle Omar Hussein undergoes thorough title verification, ownership vetting, and municipal zoning compliance reviews prior to promotion.
@@ -139,7 +139,7 @@ export const PropertyModal: React.FC<PropertyModalProps> = ({ property, onClose 
             {/* Right Column: Lead Inquiries & WhatsApp */}
             <div className="lg:col-span-5 bg-[#F4EFEB] p-6 border border-[#DFD5C8] space-y-6">
               <div className="border-b border-[#DFD5C8] pb-4">
-                <h3 className="font-serif text-xl text-[#141414]">Inquire With Colyahe</h3>
+                <h3 className="font-serif text-xl text-[#141414]">Inquire With Colhaye</h3>
                 <p className="text-xs text-neutral-500 mt-1">
                   Connect directly with Idle Omar Hussein for private viewings and offer negotiations.
                 </p>
@@ -151,7 +151,7 @@ export const PropertyModal: React.FC<PropertyModalProps> = ({ property, onClose 
                 className="w-full py-3 px-4 bg-[#25D366] text-white hover:bg-[#20ba5a] text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-colors"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp Colyahe Directly</span>
+                <span>WhatsApp Colhaye Directly</span>
               </button>
 
               <div className="text-center">

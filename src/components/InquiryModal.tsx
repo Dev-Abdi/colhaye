@@ -17,7 +17,7 @@ export const InquiryModal: React.FC = () => {
     e.preventDefault();
     if (!name || !phone) return;
 
-    const formattedMsg = `Inquiry with Idle Omar Hussein (Colyahe)\nSubject: ${inquiryContext.title || 'General Connection'}\nContext: ${inquiryContext.details || ''}\nFrom: ${name}\nPhone: ${phone}\nEmail: ${email || 'None'}\nMessage: ${notes || 'Looking forward to speaking with you.'}`;
+    const formattedMsg = `Inquiry with Idle Omar Hussein (Colhaye)\nSubject: ${inquiryContext.title || 'General Connection'}\nContext: ${inquiryContext.details || ''}\nFrom: ${name}\nPhone: ${phone}\nEmail: ${email || 'None'}\nMessage: ${notes || 'Looking forward to speaking with you.'}`;
     window.open(generateWhatsAppLink(formattedMsg), '_blank');
     setSent(true);
     setTimeout(() => {

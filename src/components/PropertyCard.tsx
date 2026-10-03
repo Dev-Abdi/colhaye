@@ -13,7 +13,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property, onViewDeta
 
   const handleWhatsAppInquiry = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const msg = `Hello Idle Omar (Colyahe), I am interested in asking about this property: "${property.title}" in ${property.location} (Listed at ${property.price}). Could you provide more details?`;
+    const msg = `Hello Idle Omar (Colhaye), I am interested in asking about this property: "${property.title}" in ${property.location} (Listed at ${property.price}). Could you provide more details?`;
     window.open(generateWhatsAppLink(msg), '_blank');
   };
 

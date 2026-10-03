@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { SADAQA_CAMPAIGNS } from '../data/content';
 import { SadaqaCampaign } from '../types';
 import { useBrand } from '../context/BrandContext';
@@ -9,8 +9,6 @@ import {
   Eye,
   FileText,
   Users,
-  Camera,
-  Upload,
   MapPin,
   Sparkles,
   Droplets,
@@ -18,10 +16,8 @@ import {
 } from 'lucide-react';
 
 export const SadaqaSection: React.FC = () => {
-  const { setSelectedCampaign, openInquiry, campaignImages, setCampaignImage } = useBrand();
+  const { setSelectedCampaign, openInquiry } = useBrand();
   const [selectedFieldPhotoIndex, setSelectedFieldPhotoIndex] = useState(0);
-  const [activeUploadCampaignId, setActiveUploadCampaignId] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const fieldSpotlights = [
     {
@@ -31,7 +27,7 @@ export const SadaqaSection: React.FC = () => {
       artifactName: 'baab188a-26b5-4ccc-b551-4dc7ecd74f0f.jpg',
       caption: 'Circular well painted cobalt blue with security iron grate cover and attached livestock trough for community goats and camels.',
       inscription: 'Mama Aisha yussuf',
-      status: 'Active & Supplying Water',
+      status: 'Active & Supplying Clean Water',
       accentColor: '#1E40AF',
       beneficiaries: 'Pastoral families & livestock herds',
     },
@@ -71,35 +67,8 @@ export const SadaqaSection: React.FC = () => {
     );
   };
 
-  const triggerUploadForCampaign = (campaignId: string) => {
-    setActiveUploadCampaignId(campaignId);
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file || !activeUploadCampaignId) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const dataUrl = event.target?.result as string;
-      setCampaignImage(activeUploadCampaignId, dataUrl);
-      setActiveUploadCampaignId(null);
-    };
-    reader.readAsDataURL(file);
-  };
-
   return (
     <section id="sadaqa-section" className="py-24 sm:py-32 bg-[#FAF8F5] text-[#141414]">
-      {/* Hidden file input for quick direct campaign image upload */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="hidden"
-      />
-
       <div className="max-w-7xl mx-auto px-6 sm:px-8 space-y-16">
         {/* Section Header */}
         <div className="max-w-3xl space-y-4">
@@ -140,66 +109,6 @@ export const SadaqaSection: React.FC = () => {
             </p>
           </div>
 
-          {/* Quick Direct 3-Photo Placement Bar */}
-          <div className="bg-[#FAF8F5] p-5 border border-[#DFD5C8] space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs uppercase tracking-wider font-semibold text-[#141414] flex items-center gap-2">
-                <Camera className="w-4 h-4 text-[#B89358]" />
-                <span>Active Field Photographs (3 Projects Uploaded)</span>
-              </span>
-              <span className="text-[11px] text-neutral-500">
-                Click any slot below to load or change the photo from your device
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {fieldSpotlights.map((spot, i) => {
-                const hasImg = Boolean(campaignImages[spot.id]);
-                return (
-                  <button
-                    key={spot.id}
-                    type="button"
-                    onClick={() => triggerUploadForCampaign(spot.id)}
-                    className={`p-3 text-left border transition-all flex items-center gap-3 ${
-                      hasImg
-                        ? 'bg-emerald-50/60 border-emerald-300'
-                        : 'bg-[#F4EFEB] border-[#DFD5C8] hover:border-[#B89358]'
-                    }`}
-                  >
-                    <div className="w-12 h-14 bg-neutral-200 border border-neutral-300 overflow-hidden shrink-0 flex items-center justify-center">
-                      {hasImg ? (
-                        <img
-                          src={campaignImages[spot.id]}
-                          alt={spot.title}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <Upload className="w-4 h-4 text-[#B89358]" />
-                      )}
-                    </div>
-
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] uppercase font-bold text-[#B89358]">Photo 0{i + 1}</span>
-                        {hasImg ? (
-                          <span className="text-[9px] uppercase font-semibold text-emerald-700 bg-emerald-100 px-1.5 py-0.2">Active</span>
-                        ) : (
-                          <span className="text-[9px] uppercase text-neutral-400">Click to place</span>
-                        )}
-                      </div>
-                      <p className="text-xs font-serif text-[#141414] truncate font-medium mt-0.5">
-                        {spot.title}
-                      </p>
-                      <p className="text-[10px] text-neutral-500 truncate">
-                        {spot.inscription || spot.location}
-                      </p>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
           {/* Interactive 3-Photo Field Navigator */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left: Tab Selectors for the 3 Uploaded Photos */}
@@ -238,82 +147,70 @@ export const SadaqaSection: React.FC = () => {
                   </button>
                 );
               })}
-
-              <div className="pt-2">
-                <button
-                  onClick={() => triggerUploadForCampaign(fieldSpotlights[selectedFieldPhotoIndex].id)}
-                  className="w-full py-2.5 px-3 bg-[#FAF8F5] border border-[#DFD5C8] hover:bg-[#EBE4DC] text-xs uppercase tracking-wider text-neutral-700 flex items-center justify-center gap-2 transition-colors"
-                >
-                  <Camera className="w-3.5 h-3.5 text-[#B89358]" />
-                  <span>Attach / Replace Field Photo</span>
-                </button>
-              </div>
             </div>
 
             {/* Right: Active Field Spotlight Frame */}
             <div className="lg:col-span-8 bg-[#141414] text-[#FAF8F5] p-6 sm:p-8 border border-white/10 space-y-6">
               {(() => {
                 const current = fieldSpotlights[selectedFieldPhotoIndex];
-                const customImage = campaignImages[current.id];
 
                 return (
                   <div>
-                    {/* Visual Media Container */}
-                    <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full bg-neutral-900 overflow-hidden border border-white/15">
-                      {customImage ? (
-                        <img
-                          src={customImage}
-                          alt={current.title}
-                          className="w-full h-full object-cover object-center filter contrast-[1.03]"
-                        />
-                      ) : (
-                        /* Try rendering the uploaded artifact file or the authentic documentary frame */
-                        <div className="w-full h-full relative">
-                          <img
-                            src={current.artifactName}
-                            alt={current.title}
-                            className="w-full h-full object-cover object-center"
-                            onError={(e) => {
-                              // If browser cannot reach direct artifact path, hide img and display documentary styling
-                              (e.target as HTMLElement).style.display = 'none';
-                            }}
-                          />
+                    {/* Visual Media Container with Ambient Backdrop for 9:16 Full Portrait Visibility */}
+                    <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full bg-neutral-950 overflow-hidden border border-white/15 flex items-center justify-center">
+                      {/* Ambient Blur Fill */}
+                      <img
+                        src={current.artifactName}
+                        alt=""
+                        aria-hidden="true"
+                        className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110 pointer-events-none"
+                        onError={(e) => {
+                          (e.target as HTMLElement).style.display = 'none';
+                        }}
+                      />
 
-                          {/* Documentary Card styling */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/60 to-transparent p-6 flex flex-col justify-between">
-                            <div className="flex items-center justify-between">
-                              <span className="bg-[#141414]/80 backdrop-blur-xs px-3 py-1 text-xs text-[#D4B580] tracking-wider uppercase border border-[#B89358]/40">
-                                Verified Field Photo 0{selectedFieldPhotoIndex + 1}
-                              </span>
-                              <span className="bg-[#25D366]/20 text-[#25D366] text-xs px-2.5 py-1 border border-[#25D366]/40 flex items-center gap-1.5">
-                                <Check className="w-3 h-3" />
-                                <span>{current.status}</span>
-                              </span>
-                            </div>
+                      {/* Foreground Sharp Image */}
+                      <img
+                        src={current.artifactName}
+                        alt={current.title}
+                        className="relative z-10 max-h-full max-w-full object-contain filter contrast-[1.03]"
+                        onError={(e) => {
+                          (e.target as HTMLElement).style.display = 'none';
+                        }}
+                      />
 
-                            <div className="space-y-2">
-                              {current.inscription && (
-                                <div className="p-3 bg-black/75 backdrop-blur-xs border-l-2 border-[#D4B580] max-w-xl">
-                                  <span className="text-[10px] uppercase tracking-widest text-[#D4B580] block mb-0.5">
-                                    Official Inscription / Plaque:
-                                  </span>
-                                  <p className="font-serif text-sm sm:text-base text-white tracking-wide">
-                                    "{current.inscription}"
-                                  </p>
-                                </div>
-                              )}
-                              <p className="text-xs text-neutral-300 max-w-lg">
-                                {current.caption}
-                              </p>
-                            </div>
-                          </div>
+                      {/* Top Badges */}
+                      <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
+                        <span className="bg-[#141414]/85 backdrop-blur-md px-3 py-1 text-xs text-[#D4B580] tracking-wider uppercase border border-[#B89358]/40 shadow-sm">
+                          Verified Field Photo 0{selectedFieldPhotoIndex + 1}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="bg-black/80 backdrop-blur-md px-2.5 py-1 text-[11px] text-neutral-300 flex items-center gap-1.5 border border-white/10">
+                            <MapPin className="w-3 h-3 text-[#D4B580]" />
+                            <span>{current.location}</span>
+                          </span>
+                          <span className="bg-[#25D366]/20 backdrop-blur-md text-[#25D366] text-xs px-2.5 py-1 border border-[#25D366]/40 flex items-center gap-1.5">
+                            <Check className="w-3 h-3" />
+                            <span>{current.status}</span>
+                          </span>
                         </div>
-                      )}
+                      </div>
 
-                      {/* Corner Location Badge */}
-                      <div className="absolute top-3 right-3 bg-black/75 backdrop-blur-xs px-2.5 py-1 text-[11px] text-neutral-300 flex items-center gap-1.5">
-                        <MapPin className="w-3 h-3 text-[#D4B580]" />
-                        <span>{current.location}</span>
+                      {/* Bottom Inscription & Caption Scrim */}
+                      <div className="absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-[#141414] via-[#141414]/75 to-transparent p-5 sm:p-6 space-y-2 pointer-events-none">
+                        {current.inscription && (
+                          <div className="p-3 bg-black/85 backdrop-blur-md border-l-2 border-[#D4B580] max-w-xl">
+                            <span className="text-[10px] uppercase tracking-widest text-[#D4B580] block mb-0.5">
+                              Official Inscription / Plaque:
+                            </span>
+                            <p className="font-serif text-sm sm:text-base text-white tracking-wide">
+                              "{current.inscription}"
+                            </p>
+                          </div>
+                        )}
+                        <p className="text-xs text-neutral-300 max-w-lg leading-relaxed">
+                          {current.caption}
+                        </p>
                       </div>
                     </div>
 
@@ -354,8 +251,6 @@ export const SadaqaSection: React.FC = () => {
               100,
               Math.round((campaign.raisedAmountKes / campaign.targetAmountKes) * 100)
             );
-            const customImg = campaignImages[campaign.id];
-
             return (
               <div
                 key={campaign.id}
@@ -364,55 +259,37 @@ export const SadaqaSection: React.FC = () => {
                 <div>
                   {/* Campaign Image */}
                   <div className="relative aspect-[16/9] overflow-hidden bg-neutral-900">
-                    {customImg ? (
+                    <div className="w-full h-full relative">
                       <img
-                        src={customImg}
+                        src={campaign.imageUrl}
                         alt={campaign.title}
                         className="w-full h-full object-cover filter contrast-[1.02]"
+                        onError={(e) => {
+                          (e.target as HTMLElement).style.display = 'none';
+                        }}
                       />
-                    ) : (
-                      <div className="w-full h-full relative">
-                        <img
-                          src={campaign.imageUrl}
-                          alt={campaign.title}
-                          className="w-full h-full object-cover filter contrast-[1.02]"
-                          onError={(e) => {
-                            (e.target as HTMLElement).style.display = 'none';
-                          }}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent p-5 flex flex-col justify-between">
-                          <div className="flex items-center justify-between">
-                            <span className="bg-[#141414]/90 px-3 py-1 text-[11px] uppercase tracking-wider text-[#D4B580] border border-[#B89358]/30">
-                              {campaign.categoryLabel}
-                            </span>
-                            <span className="bg-black/60 text-[#FAF8F5] text-[11px] px-2.5 py-1">
-                              {campaign.location}
-                            </span>
-                          </div>
-
-                          {campaign.inscription && (
-                            <div className="p-2.5 bg-black/80 border-l border-[#D4B580] text-left">
-                              <span className="text-[9px] uppercase tracking-widest text-[#D4B580] block">
-                                Inscribed Plaque / Waqf:
-                              </span>
-                              <p className="font-serif text-xs sm:text-sm text-white italic truncate">
-                                "{campaign.inscription}"
-                              </p>
-                            </div>
-                          )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent p-5 flex flex-col justify-between">
+                        <div className="flex items-center justify-between">
+                          <span className="bg-[#141414]/90 px-3 py-1 text-[11px] uppercase tracking-wider text-[#D4B580] border border-[#B89358]/30">
+                            {campaign.categoryLabel}
+                          </span>
+                          <span className="bg-black/60 text-[#FAF8F5] text-[11px] px-2.5 py-1">
+                            {campaign.location}
+                          </span>
                         </div>
-                      </div>
-                    )}
 
-                    {/* Quick photo upload button overlay */}
-                    <button
-                      type="button"
-                      onClick={() => triggerUploadForCampaign(campaign.id)}
-                      className="absolute top-3 right-3 p-1.5 bg-black/60 hover:bg-black/90 text-white rounded-full transition-colors text-xs"
-                      title="Upload or change field photograph"
-                    >
-                      <Camera className="w-3.5 h-3.5 text-[#D4B580]" />
-                    </button>
+                        {campaign.inscription && (
+                          <div className="p-2.5 bg-black/80 border-l border-[#D4B580] text-left">
+                            <span className="text-[9px] uppercase tracking-widest text-[#D4B580] block">
+                              Inscribed Plaque / Waqf:
+                            </span>
+                            <p className="font-serif text-xs sm:text-sm text-white italic truncate">
+                              "{campaign.inscription}"
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
 
                   {/* Body Content */}
@@ -506,7 +383,7 @@ export const SadaqaSection: React.FC = () => {
               Giving With Transparency
             </h3>
             <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-sans">
-              Trust in charitable giving cannot be claimed—it must be proven at every step. Colyahe enforces four rigorous transparency pillars across all community water well and welfare appeals:
+              Trust in charitable giving cannot be claimed—it must be proven at every step. Colhaye enforces four rigorous transparency pillars across all community water well and welfare appeals:
             </p>
           </div>
 

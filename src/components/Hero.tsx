@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useBrand } from '../context/BrandContext';
-import { ArrowDown, ArrowUpRight, Heart, Home, Camera } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Heart, Home } from 'lucide-react';
 
 // Refined editorial motion easing and staggered timing
 const easeEditorial = [0.16, 1, 0.3, 1] as const;
@@ -11,26 +11,26 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.14,
-      delayChildren: 0.18,
+      staggerChildren: 0.12,
+      delayChildren: 0.15,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 18 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.85,
+      duration: 0.8,
       ease: easeEditorial,
     },
   },
 };
 
 const ctaVariants = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
@@ -54,12 +54,39 @@ const footerBarVariants = {
   },
 };
 
-export const Hero: React.FC = () => {
-  const { images, setImage, setActiveView } = useBrand();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [imgErrorCount, setImgErrorCount] = useState(0);
+const ROTATING_HIGHLIGHTS = [
+  {
+    role: 'Real Estate Marketing',
+    statement: "Connecting buyers and investors to Nairobi's finest luxury residences & prime lands.",
+  },
+  {
+    role: 'Community & Sadaqa',
+    statement: 'Directing transparent, life-changing support to vulnerable families across Nairobi.',
+  },
+  {
+    role: 'Digital Influence',
+    statement: 'Inspiring over 100,000+ followers with authentic leadership and community impact.',
+  },
+  {
+    role: 'Strategic Property Partnerships',
+    statement: 'Maximizing exposure and sales for prestigious developers throughout East Africa.',
+  },
+];
 
-  const heroCandidate = images.heroPortrait || 'image.png';
+export const Hero: React.FC = () => {
+  const { images, setActiveView } = useBrand();
+  const [highlightIndex, setHighlightIndex] = useState(0);
+
+  // Permanently use base-relative image.png so it works seamlessly on GitHub Pages and local server
+  const defaultHeroImage = `${import.meta.env.BASE_URL}image.png`;
+  const heroCandidate = images.heroPortrait || defaultHeroImage;
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHighlightIndex((prev) => (prev + 1) % ROTATING_HIGHLIGHTS.length);
+    }, 4200);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleScrollToRealEstate = () => {
     setActiveView('real-estate');
@@ -77,30 +104,8 @@ export const Hero: React.FC = () => {
     }
   };
 
-  const handleHeroFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const dataUrl = event.target?.result as string;
-      setImage('heroPortrait', dataUrl);
-      setImage('aboutPortrait', dataUrl);
-    };
-    reader.readAsDataURL(file);
-  };
-
   return (
     <section className="relative min-h-[95vh] sm:min-h-screen flex items-end pb-16 pt-32 overflow-hidden bg-[#141414] text-[#FAF8F5]">
-      {/* Hidden file input for fast 1-click portrait file selection */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        onChange={handleHeroFileUpload}
-        className="hidden"
-      />
-
       {/* Background Image Container with Measured Editorial Scrim */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <motion.div
@@ -110,34 +115,10 @@ export const Hero: React.FC = () => {
           className="relative w-full h-full"
         >
           <img
-            src={
-              imgErrorCount === 0
-                ? heroCandidate
-                : imgErrorCount === 1
-                ? 'https://aistudio.google.com/artifacts/image.png'
-                : 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=2000&q=85'
-            }
-            alt="Idle Omar Hussein (Colyahe) - Nairobi Penthouse Portrait"
+            src={heroCandidate}
+            alt="Idle Omar Hussein (Colhaye) - Official Hero Portrait"
             className="w-full h-full object-cover object-[78%_20%] sm:object-right-top md:object-[82%_20%] filter brightness-[0.88] contrast-[1.04]"
-            onError={() => {
-              setImgErrorCount((prev) => prev + 1);
-            }}
           />
-
-          {/* Discreet Hero Portrait Control Badge */}
-          <div className="absolute top-24 sm:top-28 right-6 sm:right-12 z-20">
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              className="group flex items-center gap-2 px-3.5 py-1.5 bg-black/60 backdrop-blur-md border border-white/20 text-neutral-300 hover:text-white hover:border-[#B89358] transition-all text-[11px] tracking-wider uppercase"
-              title="Click to select or change Idle Omar's Penthouse portrait"
-            >
-              <Camera className="w-3.5 h-3.5 text-[#B89358]" />
-              <span>Penthouse Portrait Active</span>
-              <span className="text-[10px] text-[#B89358] ml-1 opacity-80 group-hover:opacity-100">
-                (Click to change)
-              </span>
-            </button>
-          </div>
         </motion.div>
 
         {/* Sophisticated Scrim Gradients for 100% WCAG contrast and legibility */}
@@ -154,11 +135,11 @@ export const Hero: React.FC = () => {
           animate="visible"
           className="max-w-2xl lg:max-w-3xl space-y-6"
         >
-          {/* Item 1: Small Top Location Label */}
+          {/* Item 1: Location & Official Status */}
           <motion.div variants={itemVariants} className="flex items-center gap-3">
             <span className="w-8 h-[1px] bg-[#B89358]" />
             <span className="text-xs uppercase tracking-[0.3em] text-[#D4B580] font-medium font-sans">
-              Nairobi, Kenya
+              Nairobi, Kenya · Official Brand Platform
             </span>
           </motion.div>
 
@@ -171,34 +152,55 @@ export const Hero: React.FC = () => {
             </h1>
             <div className="pt-2 flex items-baseline gap-4">
               <span className="font-serif text-2xl sm:text-3xl lg:text-4xl tracking-[0.16em] uppercase text-[#D4B580] font-medium">
-                COLYAHE
-              </span>
-              <span className="text-xs sm:text-sm tracking-[0.2em] uppercase text-neutral-300 font-light">
-                Personal Brand Platform
+                COLHAYE
               </span>
             </div>
           </motion.div>
 
-          {/* Item 3: Tagline Statement */}
-          <motion.p
-            variants={itemVariants}
-            className="font-serif italic text-lg sm:text-2xl text-neutral-200 font-light max-w-xl leading-relaxed"
-          >
-            "Real Estate • Marketing • Community"
-          </motion.p>
+          {/* Item 3: Decluttered Dynamic Rotating Statement Block */}
+          <motion.div variants={itemVariants} className="min-h-[110px] sm:min-h-[120px] flex flex-col justify-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={highlightIndex}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -14 }}
+                transition={{ duration: 0.6, ease: easeEditorial }}
+                className="space-y-2"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#B89358]" />
+                  <span className="text-[11px] uppercase tracking-[0.25em] text-[#D4B580] font-sans font-medium">
+                    {ROTATING_HIGHLIGHTS[highlightIndex].role}
+                  </span>
+                </div>
+                <p className="font-serif italic text-xl sm:text-2xl lg:text-3xl text-neutral-100 font-light max-w-xl leading-snug">
+                  "{ROTATING_HIGHLIGHTS[highlightIndex].statement}"
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
-          {/* Item 4: Narrative Description */}
-          <motion.p
-            variants={itemVariants}
-            className="text-sm sm:text-base text-neutral-300 font-sans max-w-lg leading-relaxed pt-1"
-          >
-            Connecting people with distinguished Nairobi property opportunities, while mobilizing transparent community support and Sadaqa initiatives.
-          </motion.p>
+            {/* Subtle Progress Track Indicator */}
+            <div className="flex items-center gap-2 pt-3">
+              {ROTATING_HIGHLIGHTS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setHighlightIndex(i)}
+                  className={`h-1 transition-all duration-300 rounded-full cursor-pointer ${
+                    i === highlightIndex
+                      ? 'w-7 bg-[#B89358]'
+                      : 'w-2 bg-white/20 hover:bg-white/40'
+                  }`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+          </motion.div>
 
-          {/* Item 5: Two Primary Action Buttons with Stagger & Micro-interactions */}
+          {/* Item 4: Two Primary Action Buttons */}
           <motion.div
             variants={ctaVariants}
-            className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
+            className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
           >
             <motion.button
               whileHover={{ y: -2, transition: { duration: 0.2 } }}

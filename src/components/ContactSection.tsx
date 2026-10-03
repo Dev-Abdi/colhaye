@@ -27,13 +27,13 @@ export const ContactSection: React.FC = () => {
     if (!name || !phone || !message) return;
 
     // Direct WhatsApp formulation: instant real connection for Kenyan real estate
-    const fullMsg = `Official Inquiry via Colyahe Website\nType: ${inquiryType}\nName: ${name}\nPhone: ${phone}\nEmail: ${email || 'Not provided'}\n\nMessage:\n${message}`;
+    const fullMsg = `Official Inquiry via Colhaye Website\nType: ${inquiryType}\nName: ${name}\nPhone: ${phone}\nEmail: ${email || 'Not provided'}\n\nMessage:\n${message}`;
     window.open(generateWhatsAppLink(fullMsg), '_blank');
     setSubmittedViaClient(true);
   };
 
   const handleWhatsAppQuickClick = () => {
-    const quickMsg = `Hello Idle Omar (Colyahe), I am reaching out to discuss: ${inquiryType}.`;
+    const quickMsg = `Hello Idle Omar (Colhaye), I am reaching out to discuss: ${inquiryType}.`;
     window.open(generateWhatsAppLink(quickMsg), '_blank');
   };
 
@@ -54,7 +54,7 @@ export const ContactSection: React.FC = () => {
           </h2>
 
           <p className="font-serif italic text-xl sm:text-2xl text-neutral-600">
-            Direct access to Idle Omar Hussein (Colyahe).
+            Direct access to Idle Omar Hussein (Colhaye).
           </p>
 
           <p className="text-sm text-neutral-600 leading-relaxed font-sans max-w-2xl">
@@ -129,7 +129,7 @@ export const ContactSection: React.FC = () => {
                   className="w-full py-3 px-4 bg-[#25D366] text-white hover:bg-[#20ba5a] text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>WhatsApp Colyahe Directly</span>
+                  <span>WhatsApp Colhaye Directly</span>
                 </button>
                 <p className="text-[11px] text-neutral-400 text-center">
                   Available for phone calls and WhatsApp messages during business hours.
@@ -240,7 +240,7 @@ export const ContactSection: React.FC = () => {
                 type="submit"
                 className="w-full py-4 bg-[#141414] text-[#FAF8F5] text-xs uppercase tracking-[0.2em] font-semibold hover:bg-[#B89358] hover:text-[#141414] transition-all flex items-center justify-center gap-2"
               >
-                <span>Submit & Connect with Colyahe</span>
+                <span>Submit & Connect with Colhaye</span>
                 <Send className="w-3.5 h-3.5" />
               </button>
 
@@ -248,7 +248,7 @@ export const ContactSection: React.FC = () => {
                 <div className="p-4 bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                   <span>
-                    Your inquiry has been formulated and sent to WhatsApp. Colyahe will follow up shortly!
+                    Your inquiry has been formulated and sent to WhatsApp. Colhaye will follow up shortly!
                   </span>
                 </div>
               )}

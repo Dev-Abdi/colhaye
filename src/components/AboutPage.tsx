@@ -1,9 +1,9 @@
 import React from 'react';
 import { useBrand } from '../context/BrandContext';
-import { Camera, ExternalLink, ArrowRight, Heart, Home, Sparkles } from 'lucide-react';
+import { ExternalLink, ArrowRight, Heart, Home, Sparkles } from 'lucide-react';
 
 export const AboutPage: React.FC = () => {
-  const { images, setIsPhotoManagerOpen, config, openInquiry } = useBrand();
+  const { images, config, openInquiry } = useBrand();
 
   return (
     <div className="pt-28 pb-24 bg-[#FAF8F5] text-[#141414]">
@@ -20,7 +20,7 @@ export const AboutPage: React.FC = () => {
             IDLE OMAR HUSSEIN
           </h1>
           <p className="font-serif italic text-2xl sm:text-3xl text-neutral-600">
-            Known to thousands as Colyahe.
+            Known to thousands as Colhaye.
           </p>
         </div>
 
@@ -28,35 +28,18 @@ export const AboutPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Portrait Slot */}
           <div className="lg:col-span-5 relative">
-            <div className="relative aspect-[3/4] bg-[#EBE4DC] overflow-hidden border border-[#DFD5C8] shadow-lg group">
+            <div className="relative aspect-[3/4] bg-[#EBE4DC] overflow-hidden border border-[#DFD5C8] shadow-lg">
               <img
-                src={images.aboutPortrait || 'image.png'}
-                alt="Idle Omar Hussein (Colyahe) - Editorial Portrait"
+                src={images.aboutPortrait || `${import.meta.env.BASE_URL}image.png`}
+                alt="Idle Omar Hussein (Colhaye) - Editorial Portrait"
                 className="w-full h-full object-cover object-top sm:object-center filter contrast-[1.02]"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://aistudio.google.com/artifacts/image.png';
-                }}
               />
-              <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button
-                  onClick={() => setIsPhotoManagerOpen(true)}
-                  className="px-3 py-1.5 bg-black/75 backdrop-blur-xs text-white text-[11px] uppercase tracking-wider flex items-center gap-1.5"
-                >
-                  <Camera className="w-3 h-3 text-[#B89358]" />
-                  <span>Change Portrait</span>
-                </button>
-              </div>
             </div>
 
             {/* Quick Caption */}
             <div className="pt-4 flex items-center justify-between text-xs text-neutral-500">
-              <span>Penthouse Portrait · Nairobi, Kenya</span>
-              <button
-                onClick={() => setIsPhotoManagerOpen(true)}
-                className="text-[#B89358] hover:underline"
-              >
-                Change Photo
-              </button>
+              <span>Official Portrait · Nairobi, Kenya</span>
+              <span className="text-[#B89358]">Verified Official</span>
             </div>
           </div>
 
@@ -73,7 +56,7 @@ export const AboutPage: React.FC = () => {
 
             <div className="prose text-neutral-700 space-y-4 font-sans text-sm sm:text-base leading-relaxed">
               <p>
-                Idle Omar Hussein (widely recognized as <strong>Colyahe</strong>) has carved out a unique position in Kenya's personal-brand landscape. Rather than operating as an anonymous corporate broker or a purely lifestyle content creator, he blends hands-on real-estate marketing with authentic community advocacy.
+                Idle Omar Hussein (widely recognized as <strong>Colhaye</strong>) has carved out a unique position in Kenya's personal-brand landscape. Rather than operating as an anonymous corporate broker or a purely lifestyle content creator, he blends hands-on real-estate marketing with authentic community advocacy.
               </p>
               <p>
                 His digital presence draws together property buyers, diaspora investors, families seeking dream homes, and donors wishing to participate in verified, transparent Sadaqa projects.
@@ -109,7 +92,7 @@ export const AboutPage: React.FC = () => {
                 <span className="text-[10px] text-neutral-400 lowercase font-normal italic">editable placeholder</span>
               </div>
               <p className="text-xs text-neutral-600 leading-relaxed italic">
-                "Insert formal mission statement for the Colyahe brand and long-term vision for community impact in Kenya."
+                "Insert formal mission statement for the Colhaye brand and long-term vision for community impact in Kenya."
               </p>
             </div>
 

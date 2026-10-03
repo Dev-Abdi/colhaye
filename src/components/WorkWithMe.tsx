@@ -25,7 +25,7 @@ export const WorkWithMe: React.FC = () => {
               Strategic Collaboration
             </span>
             <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl tracking-[-0.01em] font-normal text-[#141414]">
-              WORK WITH COLYAHE
+              WORK WITH COLHAYE
             </h2>
             <p className="font-serif italic text-lg sm:text-xl text-neutral-600">
               Four focused pillars of real estate representation, media influence, and community impact.

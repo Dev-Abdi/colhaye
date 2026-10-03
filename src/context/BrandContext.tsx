@@ -36,9 +36,9 @@ interface BrandContextType {
 
 const BrandContext = createContext<BrandContextType | undefined>(undefined);
 
-const STORAGE_KEY_IMAGES = 'colyahe_brand_uploaded_images';
-const STORAGE_KEY_CONFIG = 'colyahe_site_config';
-const STORAGE_KEY_CAMPAIGN_IMAGES = 'colyahe_campaign_images';
+const STORAGE_KEY_IMAGES = 'colhaye_brand_uploaded_images';
+const STORAGE_KEY_CONFIG = 'colhaye_site_config';
+const STORAGE_KEY_CAMPAIGN_IMAGES = 'colhaye_campaign_images';
 
 export const BrandProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [config, setConfig] = useState<SiteConfig>(() => {
@@ -51,36 +51,15 @@ export const BrandProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return SITE_CONFIG;
   });
 
-  const [images, setImages] = useState<UserUploadedImages>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_IMAGES);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        return {
-          heroPortrait: parsed.heroPortrait || 'image.png',
-          aboutPortrait: parsed.aboutPortrait || 'image.png',
-          fieldPortrait: parsed.fieldPortrait || null,
-        };
-      }
-    } catch (e) {
-      console.warn('Failed to parse images from storage', e);
-    }
-    return {
-      heroPortrait: 'image.png',
-      aboutPortrait: 'image.png',
-      fieldPortrait: null,
-    };
+  const defaultImage = `${import.meta.env.BASE_URL}image.png`;
+
+  const [images] = useState<UserUploadedImages>({
+    heroPortrait: defaultImage,
+    aboutPortrait: defaultImage,
+    fieldPortrait: null,
   });
 
-  const [campaignImages, setCampaignImages] = useState<Record<string, string>>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_CAMPAIGN_IMAGES);
-      if (saved) return JSON.parse(saved);
-    } catch (e) {
-      console.warn('Failed to parse campaign images from storage', e);
-    }
-    return {};
-  });
+  const [campaignImages] = useState<Record<string, string>>({});
 
   const [activeView, setActiveView] = useState<'home' | 'about' | 'real-estate' | 'sadaqa' | 'media' | 'work' | 'contact'>('home');
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
@@ -103,40 +82,20 @@ export const BrandProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [config]);
 
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY_IMAGES, JSON.stringify(images));
-    } catch (e) {
-      console.warn('Could not save images to localStorage', e);
-    }
-  }, [images]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY_CAMPAIGN_IMAGES, JSON.stringify(campaignImages));
-    } catch (e) {
-      console.warn('Could not save campaign images to localStorage', e);
-    }
-  }, [campaignImages]);
-
   const updateConfig = (newConfig: Partial<SiteConfig>) => {
     setConfig((prev) => ({ ...prev, ...newConfig }));
   };
 
-  const setImage = (slot: keyof UserUploadedImages, dataUrl: string | null) => {
-    setImages((prev) => ({ ...prev, [slot]: dataUrl }));
+  const setImage = () => {
+    // Images are officially locked and immutable
   };
 
-  const setCampaignImage = (campaignId: string, dataUrl: string) => {
-    setCampaignImages((prev) => ({ ...prev, [campaignId]: dataUrl }));
+  const setCampaignImage = () => {
+    // Campaign images are officially locked and immutable
   };
 
   const resetImages = () => {
-    const empty = { heroPortrait: null, aboutPortrait: null, fieldPortrait: null };
-    setImages(empty);
-    setCampaignImages({});
-    localStorage.removeItem(STORAGE_KEY_IMAGES);
-    localStorage.removeItem(STORAGE_KEY_CAMPAIGN_IMAGES);
+    // No-op - official portraits preserved
   };
 
   const openInquiry = (
@@ -149,7 +108,7 @@ export const BrandProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const generateWhatsAppLink = (customMessage?: string) => {
-    const defaultMsg = `Hello Idle Omar (Colyahe), I am reaching out through your official personal brand website.`;
+    const defaultMsg = `Hello Idle Omar (Colhaye), I am reaching out through your official personal brand website.`;
     const message = customMessage || defaultMsg;
     return `https://wa.me/${config.whatsappNumber}?text=${encodeURIComponent(message)}`;
   };

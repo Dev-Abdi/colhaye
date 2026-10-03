@@ -1,9 +1,9 @@
 import React from 'react';
 import { useBrand } from '../context/BrandContext';
-import { ArrowRight, Camera, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export const AboutPreview: React.FC = () => {
-  const { images, setIsPhotoManagerOpen, setActiveView } = useBrand();
+  const { images, setActiveView } = useBrand();
 
   const coreIdentities = [
     {
@@ -30,26 +30,12 @@ export const AboutPreview: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Editorial Photo Framing */}
           <div className="lg:col-span-5 relative">
-            <div className="relative aspect-[4/5] bg-[#EBE4DC] overflow-hidden border border-[#DFD5C8] shadow-md group">
+            <div className="relative aspect-[4/5] bg-[#EBE4DC] overflow-hidden border border-[#DFD5C8] shadow-md">
               <img
-                src={images.aboutPortrait || 'image.png'}
-                alt="Idle Omar Hussein (Colyahe) - Nairobi Real Estate Marketer"
+                src={images.aboutPortrait || `${import.meta.env.BASE_URL}image.png`}
+                alt="Idle Omar Hussein (Colhaye) - Nairobi Real Estate Marketer"
                 className="w-full h-full object-cover object-top sm:object-center filter contrast-[1.03]"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://aistudio.google.com/artifacts/image.png';
-                }}
               />
-
-              {/* Hover quick change control */}
-              <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button
-                  onClick={() => setIsPhotoManagerOpen(true)}
-                  className="px-3 py-1.5 bg-black/75 backdrop-blur-xs text-white text-[11px] uppercase tracking-wider flex items-center gap-1.5"
-                >
-                  <Camera className="w-3 h-3 text-[#B89358]" />
-                  <span>Change Portrait</span>
-                </button>
-              </div>
             </div>
 
             {/* Subtle decorative offset border to emulate high-end architectural print look */}
@@ -73,7 +59,7 @@ export const AboutPreview: React.FC = () => {
 
             <div className="space-y-4 text-sm sm:text-base text-neutral-600 leading-relaxed font-sans">
               <p>
-                In a rapidly developing city like Nairobi, Idle Omar Hussein (Colyahe) bridges modern real-estate marketing with genuine personal accessibility. He is not a faceless corporate brokerage; he is an active marketer and community advocate whose word is his bond.
+                In a rapidly developing city like Nairobi, Idle Omar Hussein (Colhaye) bridges modern real-estate marketing with genuine personal accessibility. He is not a faceless corporate brokerage; he is an active marketer and community advocate whose word is his bond.
               </p>
               <p>
                 Whether walking through high-potential developments in Karen and Westlands or spearheading verified community assistance drives, Idle Omar embodies a balanced vision: property opportunities that build prosperity, alongside community responsibility that uplifts people in need.

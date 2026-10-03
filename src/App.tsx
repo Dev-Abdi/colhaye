@@ -21,8 +21,6 @@ import { Footer } from './components/Footer';
 import { PropertyModal } from './components/PropertyModal';
 import { SadaqaModal } from './components/SadaqaModal';
 import { VideoModal } from './components/VideoModal';
-import { PhotoManagerModal } from './components/PhotoManagerModal';
-import { SettingsModal } from './components/SettingsModal';
 import { InquiryModal } from './components/InquiryModal';
 
 const AppContent: React.FC = () => {
@@ -117,8 +115,6 @@ const AppContent: React.FC = () => {
         onClose={() => setSelectedMedia(null)}
       />
 
-      <PhotoManagerModal />
-      <SettingsModal />
       <InquiryModal />
     </div>
   );

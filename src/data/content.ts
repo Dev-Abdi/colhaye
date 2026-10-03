@@ -2,12 +2,12 @@ import { SiteConfig, Property, SadaqaCampaign, MediaItem, ServicePillar } from '
 
 export const SITE_CONFIG: SiteConfig = {
   name: 'Idle Omar Hussein',
-  nickname: 'Colyahe',
+  nickname: 'Colhaye',
   location: 'Nairobi, Kenya',
   // Configurable Kenyan WhatsApp phone number. Can be updated via Site Settings drawer or by editing here.
   whatsappNumber: '254700000000',
   whatsappFormatted: '+254 700 000 000',
-  email: 'contact@colyahe.com',
+  email: 'contact@colhaye.com',
   tiktokUrl: 'https://www.tiktok.com/@idleomarhusein',
   facebookUrl: 'https://www.facebook.com/share/1DYwzLhLjm/?mibextid=wwXIfr',
 };
@@ -33,7 +33,7 @@ export const PROPERTIES_SHOWCASE: Property[] = [
     features: ['Private 0.5-Acre Compound', 'All En-Suite Bedrooms', 'Designer Kitchen with Island', 'Mature Landscaped Garden', 'Solar Water & Power Backup', 'Staff Quarters for 2'],
     imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
     featured: true,
-    demoNotice: 'Demo Property Showcase · Inquire for live Karen inventory & on-site viewings with Colyahe',
+    demoNotice: 'Demo Property Showcase · Inquire for live Karen inventory & on-site viewings with Colhaye',
   },
   {
     id: 'prop-2',
@@ -52,7 +52,7 @@ export const PROPERTIES_SHOWCASE: Property[] = [
     features: ['Panoramic City Views', 'Wrap-around Balcony Terrace', 'Heated Rooftop Infinity Pool', 'Fully Equipped Gym & Spa', 'High-Speed Elevators', 'Full Borehole & Generator Backup'],
     imageUrl: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
     featured: true,
-    demoNotice: 'Demo Property Showcase · Contact Colyahe to explore available units and off-plan incentives',
+    demoNotice: 'Demo Property Showcase · Contact Colhaye to explore available units and off-plan incentives',
   },
   {
     id: 'prop-3',
@@ -88,7 +88,7 @@ export const PROPERTIES_SHOWCASE: Property[] = [
     features: ['Red Soil Flat Topography', 'Clean Ready Freehold Title', 'Tarmac Road Direct Access', 'All Municipal Mains Connected', 'Strategic Diplomatic Zone', 'High Capital Appreciation'],
     imageUrl: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
     featured: false,
-    demoNotice: 'Demo Property Showcase · Contact Colyahe for due-diligence package and title verification',
+    demoNotice: 'Demo Property Showcase · Contact Colhaye for due-diligence package and title verification',
   },
   {
     id: 'prop-5',
@@ -108,7 +108,7 @@ export const PROPERTIES_SHOWCASE: Property[] = [
     features: ['UN Security Compliant Zone', 'Private Swimming Pool', 'Dedicated Cinema Room', 'Perimeter Electric Fence', 'Independent Guest Wing', 'Guardhouse & Intercom System'],
     imageUrl: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80',
     featured: true,
-    demoNotice: 'Demo Property Showcase · Private confidential viewings arranged directly with Colyahe',
+    demoNotice: 'Demo Property Showcase · Private confidential viewings arranged directly with Colhaye',
   },
   {
     id: 'prop-6',
@@ -154,7 +154,7 @@ export const SADAQA_CAMPAIGNS: SadaqaCampaign[] = [
       beneficiaryVerification: 'Local pastoral community & elder committee acceptance',
     },
     imageUrl: 'baab188a-26b5-4ccc-b551-4dc7ecd74f0f.jpg',
-    demoNotice: 'Verified Field Project · Field photograph documented on site by Colyahe',
+    demoNotice: 'Verified Field Project · Field photograph documented on site by Colhaye',
   },
   {
     id: 'sadaqa-water-2',
@@ -308,7 +308,7 @@ export const SERVICE_PILLARS: ServicePillar[] = [
     number: '03',
     title: 'Brand Partnerships',
     subtitle: 'Collaborations with relevant businesses and brands',
-    description: 'Partnering with premium interior design firms, construction suppliers, lifestyle brands, and financial institutions that resonate with Colyahe’s audience.',
+    description: 'Partnering with premium interior design firms, construction suppliers, lifestyle brands, and financial institutions that resonate with Colhaye’s audience.',
     deliverables: [
       'Authentic brand endorsements & sponsored media',
       'Event appearances & panel hosting',
@@ -337,11 +337,11 @@ export const SERVICE_PILLARS: ServicePillar[] = [
 export const BRAND_STATEMENTS = {
   kicker: 'NAIROBI, KENYA',
   name: 'IDLE OMAR HUSSEIN',
-  nickname: 'COLYAHE',
+  nickname: 'COLHAYE',
   headline: 'PROPERTY. PURPOSE. PEOPLE.',
   tagline: 'Real Estate • Marketing • Community',
   storyHeading: 'More Than Marketing.',
-  storyIntro: 'Idle Omar Hussein (widely known as Colyahe) represents a new generation of personal brands in East Africa — where business success in real estate operates side-by-side with genuine community responsibility and transparent Sadaqa advocacy.',
+  storyIntro: 'Idle Omar Hussein (widely known as Colhaye) represents a new generation of personal brands in East Africa — where business success in real estate operates side-by-side with genuine community responsibility and transparent Sadaqa advocacy.',
   sadaqaHeading: 'Giving With Transparency',
   sadaqaSubheading: 'Sincere humanitarian support built on verified grassroots impact, direct accountability, and shared responsibility.',
 };
